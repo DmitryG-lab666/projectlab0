@@ -1,0 +1,100 @@
+﻿using System;
+
+public static class Program
+{
+    public static void Main()
+    {
+        Task1();
+        Task2();
+        Task3();
+    }
+
+    static void Task1()
+    {
+        Console.WriteLine("=== Задание 1 ===");
+
+        TryRegister("A", 15);
+        TryRegister("Alice", 15);
+        TryRegister("Alice", 25);
+    }
+
+    static void TryRegister(string username, int age)
+    {
+        try
+        {
+            UserRegistration.RegisterUser(username, age);
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            Console.WriteLine($"[Ошибка аргумента]: {ex.Message}");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"[Некорректное имя]: {ex.Message}");
+        }
+    }
+
+    static void Task2()
+    {
+        Console.WriteLine("\n=== Задание 2: throw; ===");
+        try
+        {
+            PaymentProcessor.ExecutePayment();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.StackTrace);
+        }
+
+        Console.WriteLine("\n=== Задание 2: throw ex; ===");
+        try
+        {
+            PaymentProcessor.ExecutePaymentThrowEx();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.StackTrace);
+        }
+    }
+
+    static void Task3()
+    {
+        Console.WriteLine("\n=== Задание 3 ===");
+
+        Parse(new string[] { "100", "abc" }, 1, 0);
+        Parse(new string[] { "100", "abc" }, 0, 0);
+        Parse(new string[] { "100", "abc" }, 5, 2);
+        Parse(new string[] { "100", "abc" }, 1, 2);
+        Parse(null, 0, 2);
+        Parse(new string[] { "100", "abc" }, 0, 5);
+    }
+
+    static void Parse(string[] data, int index, int divisor)
+    {
+        try
+        {
+            int result = DataParser.ParseAndDivide(data, index, divisor);
+            Console.WriteLine($"Результат: {result}");
+        }
+        catch (NullReferenceException)
+        {
+            Console.WriteLine("Массив не создан (null)!");
+        }
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine("Деление на ноль!");
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Неверный формат числа!");
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("Индекс вне диапазона!");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Общая ошибка: {ex.Message}");
+        }
+    }
+}

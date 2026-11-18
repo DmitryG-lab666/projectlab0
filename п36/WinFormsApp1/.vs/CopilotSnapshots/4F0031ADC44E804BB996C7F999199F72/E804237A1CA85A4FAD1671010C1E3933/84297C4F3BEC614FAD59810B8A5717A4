@@ -1,0 +1,12 @@
+﻿namespace ClinicCrm;
+
+internal static class Program
+{
+    [STAThread]
+    private static void Main()
+    {
+        SQLitePCL.Batteries_V2.Init();
+        ApplicationConfiguration.Initialize();
+        Application.Run(new FormMain());
+    }
+}
